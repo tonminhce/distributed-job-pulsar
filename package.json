@@ -5,7 +5,8 @@
   "scripts": {
     "graphql:codegen": "graphql codegen",
     "graphql:diff": "graphql diff",
-    "graphql:similar": "graphql similar"
+    "graphql:similar": "graphql similar",
+    "prepare": "husky"
   },
   "private": true,
   "dependencies": {
@@ -25,6 +26,11 @@
   },
   "devDependencies": {
     "@as-integrations/express5": "^1.1.2",
+    "@graphql-cli/codegen": "3.0.4",
+    "@graphql-cli/diff": "2.1.0",
+    "@graphql-cli/similar": "2.1.0",
+    "@graphql-codegen/typescript": "5.0.2",
+    "@graphql-codegen/typescript-resolvers": "5.1.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.0",
     "@nx/js": "22.0.1",
@@ -38,17 +44,14 @@
     "@swc/helpers": "~0.5.11",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "20.19.9",
+    "graphql-cli": "4.1.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
     "nx": "22.0.1",
     "prettier": "^2.6.2",
     "prisma": "^6.18.0",
     "tslib": "^2.3.0",
     "typescript": "~5.9.2",
-    "webpack-cli": "^5.1.4",
-    "graphql-cli": "4.1.0",
-    "@graphql-cli/codegen": "3.0.4",
-    "@graphql-codegen/typescript": "5.0.2",
-    "@graphql-codegen/typescript-resolvers": "5.1.0",
-    "@graphql-cli/diff": "2.1.0",
-    "@graphql-cli/similar": "2.1.0"
+    "webpack-cli": "^5.1.4"
   }
 }
