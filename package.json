@@ -2,17 +2,29 @@
   "name": "@distributed-job/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "graphql:codegen": "graphql codegen",
+    "graphql:diff": "graphql diff",
+    "graphql:similar": "graphql similar"
+  },
   "private": true,
   "dependencies": {
+    "@apollo/server": "^5.0.0",
+    "@nestjs/apollo": "^13.2.1",
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
+    "@nestjs/graphql": "^13.2.0",
     "@nestjs/platform-express": "^11.0.0",
+    "@prisma/client": "^6.18.0",
     "axios": "^1.6.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "graphql": "^16.11.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0"
   },
   "devDependencies": {
+    "@as-integrations/express5": "^1.1.2",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.0",
     "@nx/js": "22.0.1",
@@ -24,11 +36,19 @@
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "20.19.9",
     "nx": "22.0.1",
     "prettier": "^2.6.2",
+    "prisma": "^6.18.0",
     "tslib": "^2.3.0",
     "typescript": "~5.9.2",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "graphql-cli": "4.1.0",
+    "@graphql-cli/codegen": "3.0.4",
+    "@graphql-codegen/typescript": "5.0.2",
+    "@graphql-codegen/typescript-resolvers": "5.1.0",
+    "@graphql-cli/diff": "2.1.0",
+    "@graphql-cli/similar": "2.1.0"
   }
 }
