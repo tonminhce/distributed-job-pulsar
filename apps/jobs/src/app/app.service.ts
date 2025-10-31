@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  async getData() {
-    return { message: 'Hello Auth API' };
+  getData(): { message: string } {
+    return { message: 'Hello Jobs API' };
   }
 }
