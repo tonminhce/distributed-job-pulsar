@@ -37,6 +37,7 @@ export class GraphQLAuthGuard implements CanActivate, OnModuleInit {
     return this.authService.authenticate({ token }).pipe(
       map((res) => {
         this.logger.log('Authenticated user:', res);
+        this.getRequest(context).user = res;
         return true;
       }),
       catchError((err) => {
