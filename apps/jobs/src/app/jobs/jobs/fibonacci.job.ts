@@ -1,7 +1,7 @@
 import { Job } from '../decorators/job.decorator';
 import { FibonacciJobData } from '../dto/fibonacci.input';
 import { AbstractJob } from './abstract-job';
-import { PulsarClient } from 'libs/pulsar/src/lib/pulsar.client';
+import { PulsarClient } from '@distributed-job/pulsar';
 
 @Job({
   name: 'FibonacciJob',

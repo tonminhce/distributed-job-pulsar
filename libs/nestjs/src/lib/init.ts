@@ -1,7 +1,7 @@
 import { Logger, INestApplication, ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
-import { AllExceptionsFilter } from './filters/all-exceptions.filter';
+import { AllExceptionsFilter } from '../../../graphql/src/lib/filters/all-exceptions.filter';
 
 export async function init(app: INestApplication, globalPrefix = 'api') {
   app.useGlobalFilters(new AllExceptionsFilter());

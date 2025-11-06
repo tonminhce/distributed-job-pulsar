@@ -4,7 +4,7 @@ import { DiscoveryModule } from '@golevelup/nestjs-discovery';
 import { JobsService } from './jobs.service';
 import { JobsResolver } from './jobs.resolver';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { AUTH_PACKAGE_NAME } from 'types/proto/auth';
+import { AUTH_PACKAGE_NAME } from '@distributed-job/grpc';
 import { join } from 'path';
 import { PulsarModule } from '@distributed-job/pulsar';
 
@@ -18,7 +18,7 @@ import { PulsarModule } from '@distributed-job/pulsar';
         transport: Transport.GRPC,
         options: {
           package: AUTH_PACKAGE_NAME,
-          protoPath: join(__dirname, 'proto/auth.proto'),
+          protoPath: join(__dirname, '../../libs/grpc/proto/auth.proto'),
         },
       },
     ]),

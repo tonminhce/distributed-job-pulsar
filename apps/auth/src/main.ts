@@ -3,11 +3,11 @@
  * This is only a minimal backend to get started.
  */
 
-import { Logger } from '@nestjs/common';
+require('module-alias/register');
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { GrpcOptions, Transport } from '@nestjs/microservices';
-import { AUTH_PACKAGE_NAME } from 'types/proto/auth';
+import { AUTH_PACKAGE_NAME } from '@distributed-job/grpc';
 import { join } from 'path';
 import { init } from '@distributed-job/nestjs';
 
@@ -18,7 +18,7 @@ async function bootstrap() {
     transport: Transport.GRPC,
     options: {
       package: AUTH_PACKAGE_NAME,
-      protoPath: join(__dirname, '/proto/auth.proto'),
+      protoPath: join(__dirname, '../../libs/grpc/proto/auth.proto'),
     },
   });
   await app.startAllMicroservices();
