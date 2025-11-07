@@ -7,9 +7,6 @@ RUN apt-get update && apt-get install -y openssl
 COPY package*.json ./
 COPY nx.json ./
 COPY tsconfig*.json ./
-COPY jest.config.ts ./
-COPY jest.preset.js ./
-COPY .eslintrc.json ./
 COPY webpack.*.config.js ./
 
 COPY apps/auth ./apps/auth
@@ -39,6 +36,7 @@ COPY --from=builder /workspace/libs/prisma/package.json ./libs/prisma/package.js
 COPY --from=builder /workspace/package-lock.json ./
 
 ENV NODE_ENV=production
+
 RUN npm ci
 
 COPY --from=builder /workspace/node_modules/@prisma-clients/auth/ ./node_modules/@prisma-clients/auth/
