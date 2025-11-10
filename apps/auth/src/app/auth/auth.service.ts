@@ -73,6 +73,14 @@ export class AuthService {
 
     try {
       const user = await lastValueFrom(this.usersService.getUser({ email }));
+      
+      if (!user) {
+        logger.error(
+          `${AuthService.name}.verifyUserCredentials - User not found: ${email}`
+        );
+        throw new UnauthorizedException('Invalid credentials');
+      }
+
       await this.validatePassword(password, user);
       return user;
     } catch (error) {

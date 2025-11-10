@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma, User as PrismaUser } from '@prisma-clients/auth';
 import { PrismaService } from '../prisma/prisma.service';
 import { loggerUtil } from '../utils/log.util';
 import { hash } from 'bcryptjs';
 import { Observable, from } from 'rxjs';
-import { User } from './models/user.model';
+import { UserResponseDto } from './dto/user-response.dto';
 
 @Injectable()
 export class UsersService {
@@ -12,15 +12,17 @@ export class UsersService {
     loggerUtil.log(`${UsersService.name} initialized`);
   }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
+  async createUser(data: Prisma.UserCreateInput): Promise<UserResponseDto> {
     loggerUtil.log(`${UsersService.name}.createUser - Called with:`, {
       ...data,
       password: '[HIDDEN]',
     });
 
     try {
-      const hashedPassword = await this.hashPassword(data.password);
-      const user = await this.saveUser(data, hashedPassword);
+      const hashedPassword = await hash(data.password, 10);
+      const user = await this.prismaService.user.create({
+        data: { ...data, password: hashedPassword },
+      });
 
       loggerUtil.log(
         `${UsersService.name}.createUser - User created successfully:`,
@@ -36,7 +38,7 @@ export class UsersService {
     }
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<UserResponseDto[]> {
     loggerUtil.log(`${UsersService.name}.findAll - Fetching all users`);
 
     try {
@@ -52,7 +54,6 @@ export class UsersService {
   }
 
   getUser(args: Prisma.UserWhereUniqueInput): Observable<PrismaUser> {
-    // use prisma user to get password so that the auth can compare passwords
     loggerUtil.log(
       `${UsersService.name}.getUser - Fetching user with args:`,
       args
@@ -62,43 +63,11 @@ export class UsersService {
       this.prismaService.user
         .findUnique({ where: args })
         .then((user) => {
-          if (user) {
-            loggerUtil.log(
-              `${UsersService.name}.getUser - User found:`,
-              user.id
-            );
-          } else {
-            loggerUtil.warn(
-              `${UsersService.name}.getUser - User not found with args:`,
-              args
-            );
+          if (!user) {
+            throw new NotFoundException(`User not found with args: ${JSON.stringify(args)}`);
           }
           return user;
         })
-        .catch((error) => {
-          loggerUtil.error(
-            `${UsersService.name}.getUser - Failed:`,
-            error.message
-          );
-          throw error;
-        })
     );
-  }
-
-  private async hashPassword(password: string): Promise<string> {
-    const hashed = await hash(password, 10);
-    loggerUtil.log(
-      `${UsersService.name}.hashPassword - Password hashed successfully`
-    );
-    return hashed;
-  }
-
-  private async saveUser(
-    data: Prisma.UserCreateInput,
-    hashedPassword: string
-  ): Promise<User> {
-    return this.prismaService.user.create({
-      data: { ...data, password: hashedPassword },
-    });
   }
 }

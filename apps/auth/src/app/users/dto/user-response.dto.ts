@@ -1,8 +1,10 @@
-import { AbstractModel } from '@distributed-job/graphql';
 import { ObjectType, Field } from '@nestjs/graphql';
 
 @ObjectType()
-export class UserResponse extends AbstractModel {
+export class UserResponseDto {
+  @Field()
+  id: string;
+
   @Field()
   email: string;
 
